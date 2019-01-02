@@ -228,4 +228,6 @@ return [
 
     ],
 
+    // fakerで日本語を利用
+    'faker_locale' => 'ja_JP',
 ];
