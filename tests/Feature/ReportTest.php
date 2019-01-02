@@ -2,10 +2,20 @@
 
 namespace Tests\Feature;
 
+use App\Customer;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ReportTest extends TestCase
 {
+    use RefreshDatabase;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->artisan('db:seed', ['--class' => 'TestDataSeeder']);
+    }
+
     /**
      * @test
      */
@@ -13,6 +23,15 @@ class ReportTest extends TestCase
     {
         $response = $this->get('api/customers');
         $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function api_customersにGETメソッドでアクセスするとJSONが返却される()
+    {
+        $response = $this->get('api/customers');
+        $this->assertThat($response->content(), $this->isJson());
     }
 
     /**
